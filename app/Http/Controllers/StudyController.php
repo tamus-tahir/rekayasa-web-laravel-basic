@@ -52,24 +52,33 @@ class StudyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Study $study)
     {
-        //
+        return view('study.edit', [
+            'title' => 'Study Edit',
+            'study' => $study
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Study $study)
     {
-        //
+        $validated = $request->validate(
+            ['name' => 'required|max:255'],
+        );
+
+        $study->update($validated);
+        return redirect()->route('study.index')->with('success', 'Data updated successfuly');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Study $study)
     {
-        //
+        $study->delete();
+        return redirect()->route('study.index')->with('success', 'Data deleted successfuly');
     }
 }

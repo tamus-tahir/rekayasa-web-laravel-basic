@@ -9,6 +9,8 @@ class Student extends Model
 {
     use HasFactory;
     protected $with = ['study'];
+    // protected $fillable = ['name', 'nim', 'study_id'];
+    protected $guarded = ['id'];
 
     public function study()
     {
